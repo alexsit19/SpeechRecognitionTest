@@ -1,68 +1,36 @@
 package com.example.myapplication.fragments
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.myapplication.ButtonListener
-import com.example.myapplication.MainActivity
+import com.example.myapplication.BaseFragment
 import com.example.myapplication.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment<FragmentMainBinding>() {
 
-    private var _binding: FragmentMainBinding? = null
-    private val binding get() = requireNotNull(_binding)
-    private var buttonListener: ButtonListener? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        buttonListener = context as MainActivity
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentMainBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setButtonListeners()
-
     }
 
     private fun setButtonListeners() {
         binding.deepSpeechBtn.setOnClickListener {
-            buttonListener?.navigateToDeepSpeechFragment()
+            buttonListener.navigateToDeepSpeechFragment()
         }
 
         binding.googleApiBtn.setOnClickListener {
-            buttonListener?.navigateToGoogleApiFragment()
+            buttonListener.navigateToGoogleApiFragment()
         }
 
         binding.speechRecognitionBtn.setOnClickListener {
-            buttonListener?.navigateToSpeechRecognitionFragment()
+            buttonListener.navigateToSpeechRecognitionFragment()
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        buttonListener = null
-    }
-
-
-    companion object {
-
-            }
+    companion object {}
 
 }

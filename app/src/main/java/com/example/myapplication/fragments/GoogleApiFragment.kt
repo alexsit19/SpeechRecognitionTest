@@ -1,57 +1,23 @@
 package com.example.myapplication.fragments
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.myapplication.ButtonListener
-import com.example.myapplication.MainActivity
-import com.example.myapplication.R
+import com.example.myapplication.BaseFragment
 import com.example.myapplication.databinding.FragmentGoogleApiBinding
-import com.example.myapplication.databinding.FragmentMainBinding
 
-class GoogleApiFragment : Fragment() {
+class GoogleApiFragment : BaseFragment<FragmentGoogleApiBinding>() {
 
-    private var _binding: FragmentGoogleApiBinding? = null
-    private val binding get() = requireNotNull(_binding)
-    private var buttonListener: ButtonListener? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        buttonListener = context as MainActivity
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentGoogleApiBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentGoogleApiBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setNavigationOnClickListener {
-            buttonListener?.navigateToMainFragment()
+            buttonListener.navigateToMainFragment()
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        buttonListener = null
-    }
-
-    companion object {
-
-    }
-
-
+    companion object {}
 }
